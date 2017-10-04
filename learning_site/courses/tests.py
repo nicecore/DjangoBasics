@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from .models import Course, Step
 from django.utils import timezone
 from django.core.urlresolvers import reverse
@@ -53,10 +53,9 @@ class CourseViewsTests(TestCase):
             course=self.course
         )
 
-        self.c = Client()
 
     def test_course_list_view(self):
-        resp = self.c.get(reverse('courses:list'))
+        resp = self.client.get(reverse('courses:list'))
         self.assertEqual(resp.status_code, 200)
         self.assertIn(self.course, resp.context['courses'])
         self.assertIn(self.course2, resp.context['courses'])
